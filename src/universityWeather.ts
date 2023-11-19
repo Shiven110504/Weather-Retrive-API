@@ -1,3 +1,7 @@
+import { fetchCurrentTemperature } from "./fetchCurrentTemperature";
+import { fetchGeoCoord } from "./fetchGeoCoord";
+import { fetchUniversities } from "./fetchUniversities";
+
 interface AverageTemperatureResults {
   totalAverage: number;
   [key: string]: number;
@@ -13,10 +17,10 @@ export function fetchUniversityWeather(
 
 export function fetchUMassWeather(): Promise<AverageTemperatureResults> {
   // TODO
-  return new Promise(res => res({ totalAverage: NaN }));
+  return fetchUniversityWeather("University of Massachusetts", (name: string) => name.replace(" at ", " "));
 }
 
 export function fetchUCalWeather(): Promise<AverageTemperatureResults> {
   // TODO
-  return new Promise(res => res({ totalAverage: NaN }));
+  return fetchUniversityWeather("University of California");
 }
