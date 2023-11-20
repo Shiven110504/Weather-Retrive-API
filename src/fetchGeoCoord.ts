@@ -16,7 +16,6 @@ export function fetchGeoCoord(query: string): Promise<GeoCoord> {
       }).then((results: GeoCoord[]) => {
           if (results.length === 0) throw new Error("No results found for query.");
           const firstResult = results[0];
-          
           resolve({
               lat: Number(firstResult.lat),
               lon: Number(firstResult.lon)
