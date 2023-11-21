@@ -26,7 +26,7 @@ export function fetchCurrentTemperature(coords: GeoCoord): Promise<TemperatureRe
       }
       return data.json();
     })
-    .then((data:ApiResponse) => {
+    .then((data: ApiResponse) => {
       // Extract the data
       const temperatureReading: TemperatureReading = {
         time: data.hourly.time,
