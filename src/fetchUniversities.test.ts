@@ -15,5 +15,3 @@ describe("fetchUniversities", () => {
     return fetchUniversities("temperory").then(result => assert(result.length === 0));
   });
 });
-
-

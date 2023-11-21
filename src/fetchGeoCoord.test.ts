@@ -28,11 +28,10 @@ describe("fetchGeoCoord 3", () => {
 
   it("throws an error for an invalid location", () => {
     const promise = fetchGeoCoord("BIGBOYSINDACLUB");
-    return promise.catch((error: Error) => {
-      assert(error.message === "No results found for query.");
+    return promise.catch(error => {
+      assert((error as Error).message === "No results found for query.");
     });
   });
-
 
   it("gives the correct coordinates for University of Massachusetts Amherst", () => {
     const promise = fetchGeoCoord("University of Massachusetts Amherst");
