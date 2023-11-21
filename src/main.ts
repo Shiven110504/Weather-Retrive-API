@@ -1,19 +1,22 @@
 import fetch from "../include/fetch.js";
 
 /*
-This program uses the Cat Facts API and the RandomCat API to fetch cat facts and random cat pictures.
-It takes user input for the number of cat facts && number of random cat pictures to dispay.
+This program uses the Number Facts API and the RandomCat API to fetch number facts and random cat pictures.
+It takes user input for the number of number facts && number of random cat pictures to dispay.
 */
-async function fetchCatFacts(numFacts: number): Promise<string[]> {
-  const catFacts: string[] = [];
-  const response = await fetch(`https://catfact.ninja/fact?limit=${numFacts}`);
-  const data = await response.json();
-
-  for (const fact of data.data) {
-    catFacts.push(fact.fact);
+async function fetchNumberFacts(numFacts: number): Promise<string[]> {
+  const numberFacts: string[] = [];
+  
+  while (numFacts !== 0) {
+    const response = await fetch(`http://numbersapi.com/${numFacts}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error!!! status: ${response.status}`);
+    }
+    const data = await response.text();
+    numberFacts.push(data);
+    numFacts--;
   }
-
-  return catFacts;
+  return numberFacts;
 }
 import readline from "readline";
 const rl = readline.createInterface({
@@ -29,7 +32,6 @@ async function fetchRandomCatPictures(numPictures: number): Promise<string[]> {
   for (const picture of data) {
     catPictures.push(picture.file);
   }
-
   return catPictures;
 }
 function getUserInput(question: string): Promise<string> {
@@ -40,7 +42,7 @@ function getUserInput(question: string): Promise<string> {
   });
 }
 (async function main() {
-  const numCatFactsInput = await getUserInput("Enter the number of cat facts to fetch: ");
+  const numCatFactsInput = await getUserInput("Enter the number of number facts to fetch: ");
   const numCatPicturesInput = await getUserInput("Enter the number of random cat pictures to fetch: ");
 
   rl.close();
@@ -48,11 +50,11 @@ function getUserInput(question: string): Promise<string> {
   const numCatFacts = numCatFactsInput !== null ? parseInt(numCatFactsInput) : 0;
   const numCatPictures = numCatPicturesInput !== null ? parseInt(numCatPicturesInput) : 0;
 
-  const catFacts = await fetchCatFacts(numCatFacts);
+  const catFacts = await fetchNumberFacts(numCatFacts);
   const averageFactLength = catFacts.reduce((sum, fact) => sum + fact.length, 0) / numCatFacts;
 
-  console.log(`\nCat Facts:\n${catFacts.join("\n")}`);
-  console.log(`\nAverage Cat Fact Length: ${averageFactLength.toFixed(2)} characters\n`);
+  console.log(`Number Facts:\n${catFacts.join("\n")}`);
+  console.log(`\nAverage Fact Length: ${averageFactLength.toFixed(2)} characters\n`);
 
   const catPictures = await fetchRandomCatPictures(numCatPictures);
   console.log("\nRandom Cat Pictures:");
