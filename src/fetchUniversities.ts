@@ -1,5 +1,9 @@
 import fetch from "../include/fetch.js";
 
+interface University {
+  name: string;
+}
+
 export function fetchUniversities(query: string): Promise<string[]> {
   // TODO
   const url = `http://220.maxkuechen.com/universities/search?name=${query}`;
@@ -10,13 +14,14 @@ export function fetchUniversities(query: string): Promise<string[]> {
       }
       return response.json();
     })
-    .then(data => {
+    .then((data: University[]) => {
       if (!Array.isArray(data)) {
         return [];
       }
       return data.map(university => university.name);
     })
     .catch(error => {
-      throw new Error(error);
+      const errorMessage = (error instanceof Error) ? error.message : String(error);
+      throw new Error(errorMessage);
     });
 }
