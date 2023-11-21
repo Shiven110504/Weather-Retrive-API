@@ -22,7 +22,7 @@ export function fetchCurrentTemperature(coords: GeoCoord): Promise<TemperatureRe
     .then(data => {
       //Check if the data extracted from the api exists
       if (!data.ok) {
-        throw new Error("Error getting temperature");
+        throw new Error(`Error getting Temperature: ${data.statusText}`);
       }
       return data.json();
     })

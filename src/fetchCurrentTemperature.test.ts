@@ -30,14 +30,14 @@ describe("fetchCurrentTemperature 3", () => {
   });
 
   it("Correctly throws error for invalid query", async () => {
-    await expect(fetchCurrentTemperature({ lat: 150, lon: 0 })).rejects.toEqual(
-      ""
+    await expect(fetchCurrentTemperature({ lat: 150, lon: 0 })).rejects.toThrow(
+      new Error("Error getting Temperature: Not Found")
     );
   });
 
   it("Correctly throws error for query with infinity", async () => {
-    await expect(fetchCurrentTemperature({ lat: Infinity, lon: 0 })).rejects.toEqual(
-      "Error getting temperature"
+    await expect(fetchCurrentTemperature({ lat: Infinity, lon: 0 })).rejects.toThrow(
+      new Error("Error getting Temperature: Not Found")
     );
   });
 });

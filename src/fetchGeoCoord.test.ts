@@ -46,12 +46,12 @@ describe("fetchGeoCoord 3", () => {
   });
 
   it("gives the correct coordinates for Hampshire College", () => {
-    const promise = fetchGeoCoord("Hampshire");
+    const promise = fetchGeoCoord("Hampshire College");
 
     return promise.then(result => {
       //find coords for hampshire college
-        assert(result.lat === 42.3869382);
-        assert(result.lon === -72.52991477067445);
+        assert(result.lat === 42.32577005);
+        assert(result.lon === -72.53223876575288);
     });
   });
 });
