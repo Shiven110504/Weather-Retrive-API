@@ -6,6 +6,13 @@ interface TemperatureReading {
   temperature_2m: number[];
 }
 
+interface ApiResponse {
+  hourly: {
+    time: string[];
+    temperature_2m: number[];
+  };
+}
+
 export function fetchCurrentTemperature(coords: GeoCoord): Promise<TemperatureReading> {
   //Url containing the desire coordinates
   const link = `https://220.maxkuechen.com/currentTemperature/forecast?latitude=${coords.lat}&longitude=${coords.lon}&hourly=temperature_2m&temperature_unit=fahrenheit`;
@@ -19,7 +26,7 @@ export function fetchCurrentTemperature(coords: GeoCoord): Promise<TemperatureRe
       }
       return data.json();
     })
-    .then(data => {
+    .then((data:ApiResponse) => {
       // Extract the data
       const temperatureReading: TemperatureReading = {
         time: data.hourly.time,
