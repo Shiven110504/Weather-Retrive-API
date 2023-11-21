@@ -64,5 +64,4 @@ function getUserInput(question: string): Promise<string> {
 
   console.log(`Year Facts:\n${YearFacts.join("\n")}`);
   console.log(`\nAverage Fact Length: ${averageYearLength.toFixed(2)} characters\n`);
-  
 })();
