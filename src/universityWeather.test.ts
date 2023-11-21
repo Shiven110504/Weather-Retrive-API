@@ -45,47 +45,45 @@ it("should reject with error given invalid input", async () => {
   await expect(fetchUniversityWeather("InvalidQuery")).rejects.toThrow("No results found for query.");
 });
 
-
 describe("fetchUniversityWeather 3", () => {
   it("returns an error when entered an empty query", () => {
-      return expect(fetchUniversityWeather("No results found for query.")).rejects.toThrow();
+    return expect(fetchUniversityWeather("No results found for query.")).rejects.toThrow();
   });
 
   it("One university", () => {
-      const promise = fetchUniversityWeather("University of Hartford");
+    const promise = fetchUniversityWeather("University of Hartford");
 
-      return promise.then(result => {
-          expect(result.totalAverage).toEqual(result[`University of Hartford`]);
-      });
+    return promise.then(result => {
+      expect(result.totalAverage).toEqual(result[`University of Hartford`]);
+    });
   });
 
-
   it("University of Texas", async () => {
-      const promise = await fetchUniversityWeather("University of Texas");
+    const promise = await fetchUniversityWeather("University of Texas");
 
-      expect(promise).toHaveProperty("totalAverage");
-      expect(typeof promise.totalAverage).toBe("number");
+    expect(promise).toHaveProperty("totalAverage");
+    expect(typeof promise.totalAverage).toBe("number");
 
-      const resultKeys = new Set(Object.keys(promise).filter(key => key !== "totalAverage"));
+    const resultKeys = new Set(Object.keys(promise).filter(key => key !== "totalAverage"));
 
-      const expectedUniversities = new Set([
-          "University of Texas Medical Branch",
-          "University of Texas Permian Basin",
-          "University of Texas Southwestern Medical Center",
-          "University of Texas at Dallas",
-          "University of Texas at Tyler",
-          "University of Texas at El Paso",
-          "University of Texas at Arlington",
-      ]);
+    const expectedUniversities = new Set([
+      "University of Texas Medical Branch",
+      "University of Texas Permian Basin",
+      "University of Texas Southwestern Medical Center",
+      "University of Texas at Dallas",
+      "University of Texas at Tyler",
+      "University of Texas at El Paso",
+      "University of Texas at Arlington",
+    ]);
 
-      const isSetsEqual = (a: Set<string>, b: Set<string>) => {
-          return a.size === b.size && [...a].every(value => b.has(value));
-      };
+    const isSetsEqual = (a: Set<string>, b: Set<string>) => {
+      return a.size === b.size && [...a].every(value => b.has(value));
+    };
 
-      expect(isSetsEqual(expectedUniversities, resultKeys)).toBe(true);
+    expect(isSetsEqual(expectedUniversities, resultKeys)).toBe(true);
 
-      expectedUniversities.forEach(uni => {
-          expect(typeof promise[uni]).toBe("number");
-      });
+    expectedUniversities.forEach(uni => {
+      expect(typeof promise[uni]).toBe("number");
+    });
   });
 });

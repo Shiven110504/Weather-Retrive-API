@@ -12,7 +12,6 @@ describe("fetchUniversities", () => {
   });
 });
 
-
 describe("fetchUniversities 3", () => {
   it("follows type specification", () => {
     const promise = fetchUniversities("University of Massachusetts at Amherst");
@@ -22,7 +21,7 @@ describe("fetchUniversities 3", () => {
       assert(result.every(x => typeof x === "string")); // Assert each element in the array is a string
     });
   });
-  
+
   it("returns length of the University Massachusetts", () => {
     return fetchUniversities("Massachusetts").then(result => assert(result.length === 6));
   });

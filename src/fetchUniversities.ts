@@ -21,7 +21,7 @@ export function fetchUniversities(query: string): Promise<string[]> {
       return data.map(university => university.name);
     })
     .catch(error => {
-      const errorMessage = (error instanceof Error) ? error.message : String(error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       throw new Error(errorMessage);
     });
 }

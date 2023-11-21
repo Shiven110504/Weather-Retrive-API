@@ -36,7 +36,7 @@ export function fetchCurrentTemperature(coords: GeoCoord): Promise<TemperatureRe
     })
     .catch(error => {
       //catching errors
-      const errorMessage = (error instanceof Error) ? error.message : String(error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       throw new Error(errorMessage);
     });
 }

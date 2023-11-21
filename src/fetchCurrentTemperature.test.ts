@@ -15,17 +15,16 @@ describe("fetchCurrentTemperature", () => {
   });
 });
 
-
 describe("fetchCurrentTemperature 3", () => {
   it("follows type specification", () => {
     const promise = fetchCurrentTemperature({ lat: -71.05, lon: 90 });
 
     return promise.then(result => {
-      assert(typeof result === "object"); 
-      assert(Array.isArray(result.time)); 
-      assert(result.time.every(x => typeof x === "string")); 
-      assert(Array.isArray(result.temperature_2m)); 
-      assert(result.temperature_2m.every(x => typeof x === "number")); 
+      assert(typeof result === "object");
+      assert(Array.isArray(result.time));
+      assert(result.time.every(x => typeof x === "string"));
+      assert(Array.isArray(result.temperature_2m));
+      assert(result.temperature_2m.every(x => typeof x === "number"));
     });
   });
 
