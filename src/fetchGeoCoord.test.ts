@@ -13,3 +13,45 @@ describe("fetchGeoCoord", () => {
     });
   });
 });
+
+
+
+
+describe("fetchGeoCoord 3", () => {
+  it("follows type specification", () => {
+      const promise = fetchGeoCoord("University of Massachusetts Amherst");
+
+      return promise.then(result => {
+          assert(typeof result === "object"); 
+          assert(typeof result.lon === "number"); 
+          assert(typeof result.lat === "number"); 
+          assert(Object.keys(result).length === 2); 
+      });
+  });
+
+  it("throws an error for an invalid location", () => {
+      const promise = fetchGeoCoord("BIGBOYSINDACLUB");
+      return promise.catch(error => {
+          assert(error === "No results found for query.");
+      });
+  });
+
+  it("gives the correct coordinates for University of Massachusetts Amherst", () => {
+      const promise = fetchGeoCoord("University of Massachusetts Amherst");
+
+      return promise.then(result => {
+          assert(result.lat === 42.3869382);
+          assert(result.lon === -72.52991477067445);
+      });
+  });
+
+  it("gives the correct coordinates for Hampshire College", () => {
+    const promise = fetchGeoCoord("Hampshire");
+
+    return promise.then(result => {
+      //find coords for hampshire college
+        assert(result.lat === 42.3869382);
+        assert(result.lon === -72.52991477067445);
+    });
+  });
+});

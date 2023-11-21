@@ -14,3 +14,30 @@ describe("fetchCurrentTemperature", () => {
     });
   });
 });
+
+
+describe("fetchCurrentTemperature 3", () => {
+  it("follows type specification", () => {
+    const promise = fetchCurrentTemperature({ lat: -71.05, lon: 90 });
+
+    return promise.then(result => {
+      assert(typeof result === "object"); 
+      assert(Array.isArray(result.time)); 
+      assert(result.time.every(x => typeof x === "string")); 
+      assert(Array.isArray(result.temperature_2m)); 
+      assert(result.temperature_2m.every(x => typeof x === "number")); 
+    });
+  });
+
+  it("Correctly throws error for invalid query", async () => {
+    await expect(fetchCurrentTemperature({ lat: 150, lon: 0 })).rejects.toEqual(
+      ""
+    );
+  });
+
+  it("Correctly throws error for query with infinity", async () => {
+    await expect(fetchCurrentTemperature({ lat: Infinity, lon: 0 })).rejects.toEqual(
+      "Error getting temperature"
+    );
+  });
+});
